@@ -1,0 +1,10 @@
+{
+	
+	"name": "merge",
+	"version": "1.0.0",
+	"author": "yeikos",
+	"description": "NodeJS Merge is used to merge multiple objects into one object.",
+	"homepage": "https://github.com/yeikos/nodejs.merge",
+	"main": "index.js"
+	
+}
