@@ -1,20 +1,15 @@
 module.exports = function() {
 
-	var x = Array.prototype.slice.call(arguments),
-		y = x.shift();
+  var argv = [].slice.call(arguments),
+      base = argv.shift();
 
-	x.forEach(function(z) {
+  argv.forEach(function(arg) {
+    if (typeof arg === 'object' && args !== null) {
+      Object.getOwnPropertyNames(arg).forEach(function(key) {
+        Object.defineProperty(base, key, Object.getOwnPropertyDescriptor(arg, key));
+      });
+    }
+  });
 
-		if (typeof z == 'object')
-
-			Object.getOwnPropertyNames(z).forEach(function(w) {
-
-				Object.defineProperty(y, w, Object.getOwnPropertyDescriptor(z, w));
-			
-			});
-		
-	});
-	
-	return y;
-	
+  return base;
 };
