@@ -49,4 +49,4 @@ Example from JavaScript browser
 	
 		console.log(original.x.y, cloned.x.y); // 1, 2
 
-	<script>
+	</script>
