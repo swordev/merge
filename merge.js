@@ -1,11 +1,10 @@
 /*!
- * @name JavaScript/NodeJS Merge v1.1.0
+ * @name JavaScript/NodeJS Merge v1.1.1
  * @author yeikos
  * @repository https://github.com/yeikos/js.merge
 
- * Copyright 2013
- * GNU General Public License
- * http://www.gnu.org/licenses/gpl-3.0.txt
+ * Copyright 2013 yeikos - MIT license
+ * https://raw.github.com/yeikos/js.merge/master/LICENSE
  */
 
 ;(function(isNode) {

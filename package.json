@@ -1,10 +1,24 @@
 {
 	
 	"name": "merge",
-	"version": "1.1.0",
-	"author": "yeikos",
+	"version": "1.1.1",
+	"author": "yeikos (http://www.yeikos.com)",
 	"description": "JavaScript/NodeJS Merge is a tool to merge multiple objects into one object, with the possibility of create a new object cloned. His operation is very similar to the jQuery.extend function but more flexible.",
+	"main": "merge.js",
+	"license": "MIT",
 	"homepage": "https://github.com/yeikos/js.merge",
-	"main": "merge.js"
-	
+
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yeikos/js.merge.git"
+	},
+
+	"keywords": [
+		"merge", 
+		"extend", 
+		"clone", 
+		"object", 
+		"browser"
+	]
+
 }
