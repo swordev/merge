@@ -1,4 +1,4 @@
-JavaScript/NodeJS Merge v1.1.1
+JavaScript/NodeJS Merge v1.1.2
 ==================================================
 
 What is it?
@@ -29,7 +29,7 @@ Example from NodeJS
 Example from JavaScript browser
 --------------------------
 
-	<script src="http://yeikos.googlecode.com/files/merge.js"></script>
+	<script src="http://files.yeikos.com/merge.js"></script>
 	
 	<script>
 		

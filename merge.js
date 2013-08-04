@@ -1,5 +1,5 @@
 /*!
- * @name JavaScript/NodeJS Merge v1.1.1
+ * @name JavaScript/NodeJS Merge v1.1.2
  * @author yeikos
  * @repository https://github.com/yeikos/js.merge
 
