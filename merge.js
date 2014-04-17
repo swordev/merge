@@ -1,9 +1,9 @@
 /*!
- * @name JavaScript/NodeJS Merge v1.1.2
+ * @name JavaScript/NodeJS Merge v1.1.3
  * @author yeikos
  * @repository https://github.com/yeikos/js.merge
 
- * Copyright 2013 yeikos - MIT license
+ * Copyright 2014 yeikos - MIT license
  * https://raw.github.com/yeikos/js.merge/master/LICENSE
  */
 

@@ -1,4 +1,4 @@
-JavaScript/NodeJS Merge v1.1.2
+JavaScript/NodeJS Merge v1.1.3
 ==================================================
 
 What is it?
