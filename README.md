@@ -1,52 +1,50 @@
-JavaScript/NodeJS Merge v1.1.3
-==================================================
+# Merge
 
-What is it?
---------------------------------------
+Merge multiple objects into one, optionally creating a new cloned object.
+Similar to the jQuery.extend but more flexible. Works in Node.js and the
+browser.
 
-JavaScript/NodeJS Merge is a tool to merge multiple objects into one object, with the possibility of create a new object cloned. His operation is very similar to the [jQuery.extend](http://api.jquery.com/jQuery.extend/) function but more flexible.
+## Node.js Usage
 
-Example from NodeJS
---------------
+```sh
+npm install merge --save
+```
 
-	var merge = require('merge'), // npm install -g merge
-		original, cloned;
-	
-	console.log(
-		
-		merge({ one: 'hello' }, { two: 'world' })
+```js
+var merge = require('merge'), original, cloned;
 
-	); // {"one": "hello", "two": "world"}
-	
+console.log(merge({one:'hello'}, {two: 'world'}));
+// -> {"one": "hello", "two": "world"}
+
+original = { x: { y: 1 } };
+cloned = merge(true, original);
+cloned.x.y++;
+
+console.log(original.x.y, cloned.x.y);
+// -> 1, 2
+```
+
+## Browser Usage
+
+```html
+<script src="http://files.yeikos.com/merge.js"></script>
+<script>
+	var original, cloned;
+
+	console.log(merge({one:'hello'}, {two: 'world'}));
+	// -> {"one": "hello", "two": "world"}
+
 	original = { x: { y: 1 } };
-
 	cloned = merge(true, original);
-
 	cloned.x.y++;
 
-	console.log(original.x.y, cloned.x.y); // 1, 2
+	console.log(original.x.y, cloned.x.y);
+	// -> 1, 2
+</script>
+```
 
-Example from JavaScript browser
---------------------------
+## Tests
 
-	<script src="http://files.yeikos.com/merge.js"></script>
-	
-	<script>
-		
-		var original, cloned;
-		
-		console.log(
-			
-			merge({ one: 'hello' }, { two: 'world' })
-	
-		); // {"one": "hello", "two": "world"}
-		
-		original = { x: { y: 1 } };
-	
-		cloned = merge(true, original);
-	
-		cloned.x.y++;
-	
-		console.log(original.x.y, cloned.x.y); // 1, 2
-
-	</script>
+```sh
+npm test
+```
