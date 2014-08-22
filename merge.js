@@ -25,9 +25,14 @@
 
 			if (typeOf(item = items[index]) === 'object')
 
-				for (key in item)
+				for (key in item) {
+
+					if (!item.hasOwnProperty(key))
+
+						continue;
 
 					result[key] = deep ? clone(item[key]) : item[key];
+				}
 
 		return result;
 
