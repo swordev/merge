@@ -11,23 +11,27 @@
 
 	function merge() {
 
-		var items = Array.prototype.slice.call(arguments),
-			result = items.shift(),
+		var result = arguments[0],
 			deep = (result === true),
-			size = items.length,
+			size = arguments.length,
 			item, index, key;
 
 		if (deep || typeOf(result) !== 'object')
 
 			result = {};
 
-		for (index=0;index<size;++index)
+		for (index=1;index<size;++index)
 
-			if (typeOf(item = items[index]) === 'object')
+			if (typeOf(item = arguments[index]) === 'object')
 
-				for (key in item)
+				for (key in item) {
+
+					if (!item.hasOwnProperty(key))
+
+						continue;
 
 					result[key] = deep ? clone(item[key]) : item[key];
+				}
 
 		return result;
 
@@ -64,7 +68,13 @@
 
 	function typeOf(input) {
 
-		return ({}).toString.call(input).match(/\s([\w]+)/)[1].toLowerCase();
+		if (Array.isArray(input))
+
+			return 'array';
+
+		if (input !== null && input instanceof Object)
+
+			return 'object';
 
 	}
 
