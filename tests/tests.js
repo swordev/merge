@@ -146,4 +146,12 @@ test('merge (deep)', function() {
     deepEqual(input, { a: { b: 1, c: 3, d: 4 } });
     deepEqual(output, { a: { b: 2, c: null, d: 4 } });
 
+
+    // `merge(deep)` does NOT merge Array
+    input = { a: [ 1, 2, 3, 4 ] };
+    output = merge(true, input, { a: [ 2, 3, 4 ] });
+
+    deepEqual(input, { a: [ 1, 2, 3, 4 ] });
+    deepEqual(output, { a: [ 2, 3, 4 ] });
+
 });

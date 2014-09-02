@@ -27,10 +27,49 @@
 
 				for (key in item)
 
-					result[key] = deep ? clone(item[key]) : item[key];
+					result[key] = deep ? mergeTwoInputs(result[key], item[key]) : item[key];
 
 		return result;
 
+	}
+
+	// If both are objects, merge them
+	// Else If both are arrays, merge them
+	// Else If `input2` is not undefined, return `input2`
+	// Else return `input1`
+	// Always return new object
+	function mergeTwoInputs(input1, input2) {
+		if (typeOf(input1) === 'object' && typeOf(input2) === 'object') {
+			return mergeTwoObjects(input1, input2);
+		}
+
+		if (typeOf(input2) !== 'undefined')
+			return clone(input2);
+
+		return clone(input1);
+	}
+
+	// Return a new object by merging both
+	//
+	// @param object1 [Object] won't be modified
+	// @param object2 [Object] won't be modified
+	//
+	// @return [Object]
+	function mergeTwoObjects(object1, object2) {
+		var result = {},
+			key;
+
+		// Clone object1
+		result = clone(object1);
+
+		// Get all keys in object2, start copying
+		for (key in object2) {
+
+			result[key] = mergeTwoInputs(result[key], object2[key]);
+
+		}
+
+		return result;
 	}
 
 	function clone(input) {
