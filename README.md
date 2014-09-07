@@ -22,6 +22,10 @@ cloned.x.y++;
 
 console.log(original.x.y, cloned.x.y);
 // -> 1, 2
+
+console.log(merge.recursive(true, original, { x: { z: 2 } }));
+// -> {"x": { "y": 1, "z": 2 } }
+
 ```
 
 ## Browser Usage
@@ -40,6 +44,10 @@ console.log(original.x.y, cloned.x.y);
 
 	console.log(original.x.y, cloned.x.y);
 	// -> 1, 2
+
+	console.log(merge.recursive(true, original, { x: { z: 2 } }));
+	// -> {"x": { "y": 1, "z": 2 } }
+
 </script>
 ```
 

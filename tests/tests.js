@@ -1,108 +1,196 @@
 test('merge', function() {
 
-    deepEqual(
+	deepEqual(
 
-        merge({ a: 1 }, { b: 2 }),
+		merge({ a: 1 }, { b: 2 }),
 
-        { a: 1, b: 2 }
+		{ a: 1, b: 2 }
 
-    );
+	);
 
-    deepEqual(
+	deepEqual(
 
-        merge({ a: 1 }, { b: { c: { d: 2 } } }),
+		merge({ a: 1 }, { b: { c: { d: 2 } } }),
 
-        { a: 1, b: { c: { d: 2 } } }
+		{ a: 1, b: { c: { d: 2 } } }
 
-    );
+	);
 
-    deepEqual(
+	deepEqual(
 
-        merge(), {}
+		merge(), {}
 
-    );
+	);
 
-    deepEqual(
+	deepEqual(
 
-        merge(undefined), {}
+		merge(undefined), {}
 
-    );
+	);
 
-    deepEqual(
+	deepEqual(
 
-        merge([]), {}
+		merge([]), {}
 
-    );
+	);
 
-    deepEqual(
+	deepEqual(
 
-        merge(true), {}
+		merge(true), {}
 
-    );
+	);
 
-    deepEqual(
+	deepEqual(
 
-        merge(null, true, [0, 1, 2], 3, { a: 1 }, function() {}, undefined, { b: 2 }),
+		merge(null, true, [0, 1, 2], 3, { a: 1 }, function() {}, undefined, { b: 2 }),
 
-        { a: 1, b: 2 }
+		{ a: 1, b: 2 }
 
-    );
+	);
 
 });
 
-test('merge (deep)', function() {
+test('merge (clone)', function() {
 
-    var input = {
+	var input = {
 
-        a: 1,
-        b: {
+		a: 1,
+		b: {
 
-            c: {
+			c: {
 
-                d: 2,
+				d: 2,
 
-                e: ['x', 'y', { z: { w: ['k'] }}]
+				e: ['x', 'y', { z: { w: ['k'] }}]
 
-            }
+			}
 
-        },
+		},
 
-        f: null,
-        g: undefined,
-        h: true
+		f: null,
+		g: undefined,
+		h: true
 
-    }, original = {
+	}, original = {
 
-        a: 1,
-        b: {
+		a: 1,
+		b: {
 
-            c: {
+			c: {
 
-                d: 2,
+				d: 2,
 
-                e: ['x', 'y', { z: { w: ['k'] }}]
+				e: ['x', 'y', { z: { w: ['k'] }}]
 
-            }
+			}
 
-        },
+		},
 
-        f: null,
-        g: undefined,
-        h: true
+		f: null,
+		g: undefined,
+		h: true
 
-    }, output = merge(true, input);
+	}, output = merge(true, input);
 
-    input.b.c.d++;
-    input.b.c.e[2].z.w = null;
-    input.h = null;
+	input.b.c.d++;
+	input.b.c.e[2].z.w = null;
+	input.h = null;
 
-    deepEqual(original, output);
+	deepEqual(original, output);
 
-    input = original;
+	input = original;
 
-    output = merge(true, input, { a: 2 });
+	output = merge(true, input, { a: 2 });
 
-    deepEqual(output.a, 2);
-    deepEqual(input.a, 1);
+	deepEqual(output.a, 2);
+	deepEqual(input.a, 1);
+
+});
+
+test('merge.recursive', function() {
+
+	deepEqual(
+
+		merge.recursive({ a: { b: 1 } }, { a : { c: 1 }}),
+
+		{ a: { b: 1, c: 1 } }
+
+	);
+
+	deepEqual(
+
+		merge.recursive({ a: { b: 1, c: 1 } }, { a : { b: 2 }}),
+
+		{ a: { b: 2, c: 1 } }
+
+	);
+
+	deepEqual(
+
+		merge.recursive({ a: { b: [1, 2, 3], c: 1 } }, { a : { b: ['a'] }}),
+
+		{ a: { b: ['a'], c: 1 } }
+
+	);
+
+	deepEqual(
+
+		merge.recursive({ a: { b: { b: 2 }, c: 1 } }, { a : { b: 2 }}),
+
+		{ a: { b: 2, c: 1 } }
+
+	);
+
+});
+
+test('merge.recursive (clone)', function() {
+
+	var input = { a: { b: 1 } };
+
+	deepEqual(
+
+		merge.recursive(true, input, { a : { c: 1 }}),
+
+		{ a: { b: 1, c: 1 } }
+
+	);
+
+	deepEqual({ a: { b: 1 } }, input);
+
+	input = { a: { b: 1, c: 1 } };
+
+	deepEqual(
+
+		merge.recursive(true, input, { a : { b: 2 }}),
+
+		{ a: { b: 2, c: 1 } }
+
+	);
+
+	deepEqual({ a: { b: 1, c: 1 } }, input);
+
+	input = { a: { b: [1, 2, 3], c: 1 } };
+
+	deepEqual(
+
+		merge.recursive(true, input, { a : { b: ['a'] }}),
+
+		{ a: { b: ['a'], c: 1 } }
+
+	);
+
+	deepEqual({ a: { b: [1, 2, 3], c: 1 } }, input);
+
+	input = { a: { b: { b: 2 }, c: 1 } };
+
+	deepEqual(
+
+		merge.recursive(true, input, { a : { b: 2 }}),
+
+		{ a: { b: 2, c: 1 } }
+
+	);
+
+	deepEqual({ a: { b: { b: 2 }, c: 1 } }, input);
 
 });
