@@ -1,3 +1,7 @@
+function Foo(){}
+
+Foo.prototype.bar = 1;
+
 test('merge', function() {
 
 	deepEqual(
@@ -45,6 +49,14 @@ test('merge', function() {
 		merge(null, true, [0, 1, 2], 3, { a: 1 }, function() {}, undefined, { b: 2 }),
 
 		{ a: 1, b: 2 }
+
+	);
+
+	deepEqual(
+
+		merge({}, new Foo()),
+
+		{}
 
 	);
 
@@ -138,6 +150,14 @@ test('merge.recursive', function() {
 		merge.recursive({ a: { b: { b: 2 }, c: 1 } }, { a : { b: 2 }}),
 
 		{ a: { b: 2, c: 1 } }
+
+	);
+
+	deepEqual(
+
+		merge.recursive({}, new Foo()),
+
+		{}
 
 	);
 
