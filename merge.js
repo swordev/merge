@@ -10,7 +10,7 @@
 ;(function(isNode) {
 
 	/**
-	 * Merge one or more objects 
+	 * Merge one or more objects
 	 * @param bool? clone
 	 * @param mixed,... arguments
 	 * @return object
@@ -23,7 +23,7 @@
 	}, publicName = 'merge';
 
 	/**
-	 * Merge two or more objects recursively 
+	 * Merge two or more objects recursively
 	 * @param bool? clone
 	 * @param mixed,... arguments
 	 * @return object
@@ -85,13 +85,17 @@
 
 		for (var key in extend) {
 
-			if (typeOf(base[key]) === 'object' && typeOf(extend[key]) === 'object') {
+			if (extend.hasOwnProperty(key)) {
 
-				base[key] = merge_recursive(base[key], extend[key]);
+				if (typeOf(base[key]) === 'object' && typeOf(extend[key]) === 'object') {
 
-			} else {
+					base[key] = merge_recursive(base[key], extend[key]);
 
-				base[key] = extend[key];
+				} else {
+
+					base[key] = extend[key];
+
+				}
 
 			}
 
@@ -128,15 +132,19 @@
 
 			for (var key in item) {
 
-				var sitem = clone ? Public.clone(item[key]) : item[key];
+				if (item.hasOwnProperty(key)) {
 
-				if (recursive) {
+					var sitem = clone ? Public.clone(item[key]) : item[key];
 
-					result[key] = merge_recursive(result[key], sitem);
+					if (recursive) {
 
-				} else {
+						result[key] = merge_recursive(result[key], sitem);
 
-					result[key] = sitem;
+					} else {
+
+						result[key] = sitem;
+
+					}
 
 				}
 
