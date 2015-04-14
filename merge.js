@@ -158,7 +158,7 @@
 
 	function typeOf(input) {
 
-		return ({}).toString.call(input).slice(8, -1).toLowerCase();
+		return Object.prototype.toString.call(input).slice(8, -1).toLowerCase();
 
 	}
 
