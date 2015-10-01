@@ -31,7 +31,7 @@
 
 	Public.recursive = function(clone) {
 
-		return merge(clone === true, true, arguments);
+		return merge(clone === true, true, clone === true ? Array.prototype.slice.call(arguments, 1) : arguments);
 
 	};
 
