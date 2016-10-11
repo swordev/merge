@@ -168,7 +168,7 @@
 
 	} else {
 
-		window[publicName] = Public;
+		self[publicName] = Public;
 
 	}
 
