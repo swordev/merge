@@ -7,169 +7,177 @@
  * https://raw.github.com/yeikos/js.merge/master/LICENSE
  */
 
-;(function(isNode) {
+(function (root, factory) {
 
-	/**
-	 * Merge one or more objects 
-	 * @param bool? clone
-	 * @param mixed,... arguments
-	 * @return object
-	 */
+    'use strict';
 
-	var Public = function(clone) {
+    if (typeof define === 'function' && define.amd) {
+        define(factory);
+    } else if (typeof module === 'object' && module.exports) {
+        module.exports = factory();
+    } else {
+        self.merge = factory();
+    }
 
-		return merge(clone === true, false, arguments);
+}(this, factory));
 
-	}, publicName = 'merge';
+function factory()
+{
 
-	/**
-	 * Merge two or more objects recursively 
-	 * @param bool? clone
-	 * @param mixed,... arguments
-	 * @return object
-	 */
 
-	Public.recursive = function(clone) {
+    /**
+     * Merge one or more objects 
+     * @param bool? clone
+     * @param mixed,... arguments
+     * @return object
+     */
 
-		return merge(clone === true, true, arguments);
+    var Public = function(clone) {
 
-	};
+        return merge(clone === true, false, arguments);
 
-	/**
-	 * Clone the input removing any reference
-	 * @param mixed input
-	 * @return mixed
-	 */
+    };
 
-	Public.clone = function(input) {
+    /**
+     * Merge two or more objects recursively 
+     * @param bool? clone
+     * @param mixed,... arguments
+     * @return object
+     */
 
-		var output = input,
-			type = typeOf(input),
-			index, size;
+    Public.recursive = function(clone) {
 
-		if (type === 'array') {
+        return merge(clone === true, true, arguments);
 
-			output = [];
-			size = input.length;
+    };
 
-			for (index=0;index<size;++index)
+    /**
+     * Clone the input removing any reference
+     * @param mixed input
+     * @return mixed
+     */
 
-				output[index] = Public.clone(input[index]);
+    Public.clone = function(input) {
 
-		} else if (type === 'object') {
+        var output = input,
+        type = typeOf(input),
+        index, size;
 
-			output = {};
+        if (type === 'array') {
 
-			for (index in input)
+            output = [];
+            size = input.length;
 
-				output[index] = Public.clone(input[index]);
+            for (index=0;index<size;++index)
 
-		}
+                output[index] = Public.clone(input[index]);
 
-		return output;
+        } else if (type === 'object') {
 
-	};
+            output = {};
 
-	/**
-	 * Merge two objects recursively
-	 * @param mixed input
-	 * @param mixed extend
-	 * @return mixed
-	 */
+            for (index in input)
 
-	function merge_recursive(base, extend) {
+                output[index] = Public.clone(input[index]);
 
-		if (typeOf(base) !== 'object')
+        }
 
-			return extend;
+        return output;
 
-		for (var key in extend) {
+    };
 
-			if (typeOf(base[key]) === 'object' && typeOf(extend[key]) === 'object') {
+    /**
+     * Merge two objects recursively
+     * @param mixed input
+     * @param mixed extend
+     * @return mixed
+     */
 
-				base[key] = merge_recursive(base[key], extend[key]);
+    function merge_recursive(base, extend) {
 
-			} else {
+        if (typeOf(base) !== 'object')
 
-				base[key] = extend[key];
+            return extend;
 
-			}
+        for (var key in extend) {
 
-		}
+            if (typeOf(base[key]) === 'object' && typeOf(extend[key]) === 'object') {
 
-		return base;
+                base[key] = merge_recursive(base[key], extend[key]);
 
-	}
+            } else {
 
-	/**
-	 * Merge two or more objects
-	 * @param bool clone
-	 * @param bool recursive
-	 * @param array argv
-	 * @return object
-	 */
+                base[key] = extend[key];
 
-	function merge(clone, recursive, argv) {
+            }
 
-		var result = argv[0],
-			size = argv.length;
+        }
 
-		if (clone || typeOf(result) !== 'object')
+        return base;
 
-			result = {};
+    }
 
-		for (var index=0;index<size;++index) {
+    /**
+     * Merge two or more objects
+     * @param bool clone
+     * @param bool recursive
+     * @param array argv
+     * @return object
+     */
 
-			var item = argv[index],
+    function merge(clone, recursive, argv) {
 
-				type = typeOf(item);
+        var result = argv[0],
+        size = argv.length;
 
-			if (type !== 'object') continue;
+        if (clone || typeOf(result) !== 'object')
 
-			for (var key in item) {
+            result = {};
 
-				var sitem = clone ? Public.clone(item[key]) : item[key];
+        for (var index=0;index<size;++index) {
 
-				if (recursive) {
+            var item = argv[index],
 
-					result[key] = merge_recursive(result[key], sitem);
+            type = typeOf(item);
 
-				} else {
+            if (type !== 'object') continue;
 
-					result[key] = sitem;
+            for (var key in item) {
 
-				}
+                var sitem = clone ? Public.clone(item[key]) : item[key];
 
-			}
+                if (recursive) {
 
-		}
+                    result[key] = merge_recursive(result[key], sitem);
 
-		return result;
+                } else {
 
-	}
+                    result[key] = sitem;
 
-	/**
-	 * Get type of variable
-	 * @param mixed input
-	 * @return string
-	 *
-	 * @see http://jsperf.com/typeofvar
-	 */
+                }
 
-	function typeOf(input) {
+            }
 
-		return ({}).toString.call(input).slice(8, -1).toLowerCase();
+        }
 
-	}
+        return result;
 
-	if (isNode) {
+    }
 
-		module.exports = Public;
+    /**
+     * Get type of variable
+     * @param mixed input
+     * @return string
+     *
+     * @see http://jsperf.com/typeofvar
+     */
 
-	} else {
+    function typeOf(input) {
 
-		self[publicName] = Public;
+        return ({}).toString.call(input).slice(8, -1).toLowerCase();
 
-	}
+    }
 
-})(typeof module === 'object' && module && typeof module.exports === 'object' && module.exports);
+    return Public;
+
+}
