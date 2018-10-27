@@ -1,7 +1,7 @@
 {
   "name": "merge",
-  "version": "1.2.0",
-  "author": "yeikos (http://www.yeikos.com)",
+  "version": "1.2.1",
+  "author": "yeikos",
   "description": "Merge multiple objects into one, optionally creating a new cloned object. Similar to the jQuery.extend but more flexible. Works in Node.js and the browser.",
   "main": "merge.js",
   "license": "MIT",

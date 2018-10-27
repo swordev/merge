@@ -50,6 +50,25 @@ test('merge', function() {
 
 });
 
+test('merge (prototype pollution attack)', function() {
+
+	deepEqual(
+
+		merge({}, JSON.parse('{"__proto__": {"a": true}}')),
+		{}
+
+	);
+
+	deepEqual(
+
+		{}.a,
+
+		undefined
+
+	);
+
+});
+
 test('merge (clone)', function() {
 
 	var input = {
@@ -138,6 +157,25 @@ test('merge.recursive', function() {
 		merge.recursive({ a: { b: { b: 2 }, c: 1 } }, { a : { b: 2 }}),
 
 		{ a: { b: 2, c: 1 } }
+
+	);
+
+});
+
+test('merge.recursive (prototype pollution attack)', function() {
+
+	deepEqual(
+
+		merge.recursive({}, JSON.parse('{"__proto__": {"a": true}}')),
+		{}
+
+	);
+
+	deepEqual(
+
+		{}.a,
+
+		undefined
 
 	);
 
