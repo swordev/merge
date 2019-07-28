@@ -1,24 +1,39 @@
 {
-  "name": "merge",
-  "version": "1.2.1",
-  "author": "yeikos",
-  "description": "Merge multiple objects into one, optionally creating a new cloned object. Similar to the jQuery.extend but more flexible. Works in Node.js and the browser.",
-  "main": "merge.js",
-  "license": "MIT",
-  "homepage": "https://github.com/yeikos/js.merge",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yeikos/js.merge.git"
-  },
-  "keywords": [
-    "merge",
-    "recursive",
-    "extend",
-    "clone",
-    "object",
-    "browser"
-  ],
-  "scripts": {
-    "test": "cd tests; node index.js"
-  }
+	"name": "merge",
+	"version": "1.2.1",
+	"author": "yeikos",
+	"description": "Merge multiple objects into one, optionally creating a new cloned object. Similar to the jQuery.extend but more flexible. Works in Node.js and the browser.",
+	"main": "merge.js",
+	"license": "MIT",
+	"homepage": "https://github.com/yeikos/js.merge",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yeikos/js.merge.git"
+	},
+	"keywords": [
+		"merge",
+		"recursive",
+		"extend",
+		"clone",
+		"object",
+		"browser"
+	],
+	"scripts": {
+		"build": "./node_modules/.bin/tsc -p tsconfig.json",
+		"build-watch": "./node_modules/.bin/tsc -p tsconfig.json -w",
+		"webpack": "./node_modules/.bin/webpack --config webpack.config.js",
+		"webpack-watch": "./node_modules/.bin/webpack --config webpack.config.js -w",
+		"dev": "./node_modules/.bin/concurrently --kill-others \"npm run build-watch\" \"npm run webpack-watch\"",
+		"test": "./node_modules/.bin/mocha lib/test/index.js"
+	},
+	"devDependencies": {
+		"@types/chai": "4.1.7",
+		"@types/mocha": "5.2.7",
+		"chai": "4.2.0",
+		"concurrently": "4.1.1",
+		"mocha": "6.2.0",
+		"typescript": "3.5.3",
+		"webpack": "4.38.0",
+		"webpack-cli": "3.3.6"
+	}
 }
