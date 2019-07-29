@@ -207,6 +207,7 @@ module.exports = chai;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+module.exports = exports = main;
 function main() {
     var items = [];
     for (var _i = 0; _i < arguments.length; _i++) {
