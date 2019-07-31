@@ -208,6 +208,7 @@ module.exports = chai;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 module.exports = exports = main;
+exports.default = main;
 function main() {
     var items = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -215,7 +216,7 @@ function main() {
     }
     return merge.apply(void 0, items);
 }
-exports.default = main;
+exports.main = main;
 main.clone = clone;
 main.isPlainObject = isPlainObject;
 main.recursive = recursive;
