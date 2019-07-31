@@ -1,58 +1,84 @@
 # Merge
 
-Merge multiple objects into one, optionally creating a new cloned object.
-Similar to the jQuery.extend but more flexible. Works in Node.js and the
-browser.
+(recursive)? merging of (cloned)? objects.
 
-## Node.js Usage
+# Install
+
+## Node.js
 
 ```sh
-npm install merge --save
+npm i merge
 ```
-
 ```js
-var merge = require('merge'), original, cloned;
-
-console.log(merge({one:'hello'}, {two: 'world'}));
-// -> {"one": "hello", "two": "world"}
-
-original = { x: { y: 1 } };
-cloned = merge(true, original);
-cloned.x.y++;
-
-console.log(original.x.y, cloned.x.y);
-// -> 1, 2
-
-console.log(merge.recursive(true, original, { x: { z: 2 } }));
-// -> {"x": { "y": 1, "z": 2 } }
-
+import merge from 'merge'
 ```
 
-## Browser Usage
+## Browser
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/yeikos/js.merge/merge.js"></script>
-<script>
-	var original, cloned;
-
-	console.log(merge({one:'hello'}, {two: 'world'}));
-	// -> {"one": "hello", "two": "world"}
-
-	original = { x: { y: 1 } };
-	cloned = merge(true, original);
-	cloned.x.y++;
-
-	console.log(original.x.y, cloned.x.y);
-	// -> 1, 2
-
-	console.log(merge.recursive(true, original, { x: { z: 2 } }));
-	// -> {"x": { "y": 1, "z": 2 } }
-
-</script>
+<script src="https://cdn.jsdelivr.net/gh/yeikos/js.merge/dist/merge.browser.min.js"></script>
+```
+```js
+window.merge
 ```
 
-## Tests
+# API
+
+```typescript
+merge(clone: boolean, ...items: Object[])
+merge(...items: Object[])
+merge.recursive(clone: boolean, ...items: Object[])
+merge.recursive(...items: Object[])
+```
+
+# Examples
+
+```js
+
+// Merge 
+
+{
+	var objectA = {} 
+
+	merge(objectA, 
+		{ value: 1 }, 
+		{ str: 'hello world' }
+	)
+
+	var objectB = merge(true, objectA, 
+		{ value: 2 }
+	)
+
+	objectA // { value: 1, str: 'hello world' }
+	objectB // { value: 2, str: 'hello world' }
+}
+
+// Recursive merge
+
+{
+	var objectA = {}
+
+	merge.recursive(objectA, 
+		{ level: { value: 1 } },
+		{ level: { str: 'hello world' } }
+	)
+	var objectB = merge.recursive(true, objectA, 
+		{ level: { value: 2 } }
+	)
+
+	objectA.level // { value: 1, str: 'hello world' }
+	objectB.level // { value: 2, str: 'hello world' }
+}
+```
+# Test
+
+## Node.js
 
 ```sh
 npm test
+```
+## Browser
+
+```
+./dist/merge.browser.test.html
 ```
