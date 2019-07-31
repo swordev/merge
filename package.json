@@ -19,12 +19,13 @@
 		"browser"
 	],
 	"scripts": {
-		"build": "./node_modules/.bin/tsc -p tsconfig.json",
-		"build-watch": "./node_modules/.bin/tsc -p tsconfig.json -w",
-		"webpack": "./node_modules/.bin/webpack --config webpack.config.js",
-		"webpack-watch": "./node_modules/.bin/webpack --config webpack.config.js -w",
-		"dev": "./node_modules/.bin/concurrently --kill-others \"npm run build-watch\" \"npm run webpack-watch\"",
-		"test": "./node_modules/.bin/mocha lib/test/index.js"
+		"build": "npm run build:ts && npm run build:wp",
+		"dev": "./node_modules/.bin/concurrently --kill-others \"npm run dev:ts\" \"npm run dev:wp\"",
+		"test": "./node_modules/.bin/mocha lib/test/index.js",
+		"build:ts": "./node_modules/.bin/tsc -p tsconfig.json",
+		"build:wp": "./node_modules/.bin/webpack --config webpack.config.js",
+		"dev:ts": "./node_modules/.bin/tsc -p tsconfig.json -w",
+		"dev:wp": "./node_modules/.bin/webpack --config webpack.config.js -w"
 	},
 	"devDependencies": {
 		"@types/chai": "4.1.7",
