@@ -1,6 +1,6 @@
 {
 	"name": "merge",
-	"version": "1.2.1",
+	"version": "2.0.0",
 	"author": "yeikos",
 	"description": "(recursive)? merging of (cloned)? objects.",
 	"main": "lib/src/index.js",
