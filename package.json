@@ -4,6 +4,7 @@
 	"author": "yeikos",
 	"description": "(recursive)? merging of (cloned)? objects.",
 	"main": "lib/src/index.js",
+	"files": [],
 	"license": "MIT",
 	"homepage": "https://github.com/yeikos/js.merge",
 	"repository": {
