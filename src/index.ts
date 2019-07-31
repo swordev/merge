@@ -1,8 +1,7 @@
 module.exports = exports = main
 
-export default function main(clone: boolean, ...items: any[]): any
-export default function main(...items: any[]): any
-
+export function main(clone: boolean, ...items: any[]): any
+export function main(...items: any[]): any
 export default function main(...items: any[]) {
 	return merge(...items)
 }
