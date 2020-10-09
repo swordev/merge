@@ -276,7 +276,7 @@ function _merge(isClone, isRecursive, items) {
         if (!isPlainObject(item))
             continue;
         for (var key in item) {
-            if (key === '__proto__')
+            if (key === '__proto__' || key === 'constructor' || key === 'prototype')
                 continue;
             var value = isClone ? clone(item[key]) : item[key];
             result[key] = isRecursive ? _recursiveMerge(result[key], value) : value;
