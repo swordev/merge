@@ -85,7 +85,7 @@ function _merge(isClone: boolean, isRecursive: boolean, items: any[]) {
 			continue
 
 		for (const key in item) {
-			if (key === '__proto__') continue
+			if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue
 			const value = isClone ? clone(item[key]) : item[key]
 			result[key] = isRecursive ? _recursiveMerge(result[key], value) : value
 		}
