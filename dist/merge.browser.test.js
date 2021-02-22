@@ -62,10 +62,13 @@ exports.isPlainObject = isPlainObject;
 function _recursiveMerge(base, extend) {
     if (!isPlainObject(base))
         return extend;
-    for (var key in extend)
+    for (var key in extend) {
+        if (key === '__proto__' || key === 'constructor' || key === 'prototype')
+            continue;
         base[key] = (isPlainObject(base[key]) && isPlainObject(extend[key])) ?
             _recursiveMerge(base[key], extend[key]) :
             extend[key];
+    }
     return base;
 }
 function _merge(isClone, isRecursive, items) {
@@ -194,6 +197,9 @@ describe('merge.recursive', function () {
     });
     it('prototype pollution attack', function () {
         chai_1.assert.deepEqual(index_1.default.recursive({}, JSON.parse('{"__proto__": {"a": true}}')), {});
+        chai_1.assert.equal({}['a'], undefined);
+        chai_1.assert.deepEqual(index_1.default.recursive({ deep: {} }, JSON.parse('{ "deep": { "__proto__": {"b": true} }}')), { deep: {} });
+        chai_1.assert.equal({}['b'], undefined);
     });
 });
 

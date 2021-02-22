@@ -61,10 +61,12 @@ function _recursiveMerge(base: any, extend: any) {
 	if (!isPlainObject(base))
 		return extend
 
-	for (const key in extend)
+	for (const key in extend) {
+		if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue
 		base[key] = (isPlainObject(base[key]) && isPlainObject(extend[key])) ?
 			_recursiveMerge(base[key], extend[key]) :
 			extend[key]
+	}
 
 	return base
 

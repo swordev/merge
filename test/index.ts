@@ -219,6 +219,15 @@ describe('merge.recursive', function () {
 			{}
 		)
 
+		assert.equal(({} as any)['a'], undefined)
+
+		assert.deepEqual(
+			merge.recursive({ deep: {} }, JSON.parse('{ "deep": { "__proto__": {"b": true} }}')),
+			{ deep: {} }
+		)
+
+		assert.equal(({} as any)['b'], undefined)
+
 	})
 
 })
