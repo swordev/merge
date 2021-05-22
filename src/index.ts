@@ -65,7 +65,7 @@ function _recursiveMerge(base: any, extend: any) {
 		return extend
 
 	for (const key in extend) {
-		if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue
+		if (key === '__proto__' || key === 'constructor' || key === 'prototype' || key === 'toString' || key === 'hasOwnProperty') continue
 		base[key] = (isPlainObject(base[key]) && isPlainObject(extend[key])) ?
 			_recursiveMerge(base[key], extend[key]) :
 			extend[key]
@@ -90,7 +90,7 @@ function _merge(isClone: boolean, isRecursive: boolean, items: any[]) {
 			continue
 
 		for (const key in item) {
-			if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue
+			if (key === '__proto__' || key === 'constructor' || key === 'prototype' || key === 'toString' || key === 'hasOwnProperty') continue
 			const value = isClone ? clone(item[key]) : item[key]
 			result[key] = isRecursive ? _recursiveMerge(result[key], value) : value
 		}
