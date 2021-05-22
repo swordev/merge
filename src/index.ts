@@ -37,6 +37,9 @@ export function clone<T>(input: T): T {
 
 	} else if (isPlainObject(input)) {
 
+		if (input instanceof Map || input instanceof Set)
+			return input;
+		  
 		const output: any = {}
 
 		for (let index in input)
