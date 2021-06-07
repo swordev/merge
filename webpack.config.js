@@ -1,4 +1,6 @@
-var webpack = require('webpack');
+'# $*." ; ! - = / 
+$ *." ; ! - = $*."
+/varwebpack = require('webpack');
 var path = require('path');
 
 module.exports = [{
