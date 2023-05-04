@@ -1,5 +1,10 @@
 # merge
 
+[![workflow-badge]](https://github.com/swordev/merge/actions/workflows/ci.yaml) [![license-badge]](https://github.com/swordev/merge#license)
+
+[workflow-badge]: https://img.shields.io/github/actions/workflow/status/swordev/merge/ci.yaml?branch=main
+[license-badge]: https://img.shields.io/github/license/swordev/merge
+
 > (recursive)? merging of (cloned)? objects.
 
 ## Installation
