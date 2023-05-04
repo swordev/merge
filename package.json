@@ -31,9 +31,12 @@
     "build": "tsc --build tsconfig.build.json",
     "dev": "tsc --build tsconfig.build.json -w",
     "format": "prettier --cache -w .",
+    "release": "changeset publish",
     "test": "vitest run"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.1",
     "prettier": "^2.8.8",
     "prettier-plugin-packagejson": "^2.4.3",
     "prettier-plugin-sort-json": "^1.0.0",
