@@ -1,5 +1,3 @@
-module.exports = exports = main;
-
 export default main;
 
 export function main(clone: boolean, ...items: any[]): any;
@@ -35,7 +33,7 @@ export function clone<T>(input: T): T {
   } else if (isPlainObject(input)) {
     const output: any = {};
 
-    for (let index in input) output[index] = clone(input[index]);
+    for (let index in input) output[index] = clone((input as any)[index]);
 
     return output as any;
   } else {

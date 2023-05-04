@@ -17,29 +17,21 @@
   },
   "license": "MIT",
   "author": "yeikos",
-  "main": "lib/src/index.js",
+  "main": "lib/index.js",
   "files": [
-    "lib/src/index.d.ts"
+    "lib/index.d.ts"
   ],
   "scripts": {
-    "build": "npm run build:ts && npm run build:wp",
-    "build:ts": "./node_modules/.bin/tsc -p tsconfig.json",
-    "build:wp": "./node_modules/.bin/webpack --config webpack.config.js",
-    "dev": "./node_modules/.bin/concurrently --kill-others \"npm run dev:ts\" \"npm run dev:wp\"",
-    "dev:ts": "./node_modules/.bin/tsc -p tsconfig.json -w",
-    "dev:wp": "./node_modules/.bin/webpack --config webpack.config.js -w",
+    "build": "tsc --build tsconfig.build.json",
+    "dev": "tsc --build tsconfig.build.json -w",
     "format": "prettier --cache -w .",
     "test": "vitest run"
   },
   "devDependencies": {
-    "@types/node": "^14.14.7",
-    "concurrently": "^5.3.0",
     "prettier": "^2.8.8",
     "prettier-plugin-packagejson": "^2.4.3",
     "prettier-plugin-sort-json": "^1.0.0",
     "typescript": "^5.0.4",
-    "vitest": "^0.31.0",
-    "webpack": "^5.4.0",
-    "webpack-cli": "^4.2.0"
+    "vitest": "^0.31.0"
   }
 }

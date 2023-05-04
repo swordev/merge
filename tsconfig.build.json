@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "declaration": true,
+    "outDir": "./lib",
+    "incremental": true,
+    "typeRoots": []
+  },
+  "extends": "./tsconfig.json",
+  "include": ["src"]
+}

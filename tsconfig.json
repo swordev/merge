@@ -3,9 +3,6 @@
     "target": "es5",
     "lib": ["es2015", "es2016"],
     "module": "commonjs",
-    "declaration": true,
-    "outDir": "./lib",
     "strict": true
-  },
-  "include": ["src/index.ts", "test/index.ts"]
+  }
 }
