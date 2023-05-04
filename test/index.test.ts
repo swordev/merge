@@ -1,5 +1,5 @@
 import merge from "../src/index";
-import { describe, it, assert } from "vitest";
+import { describe, it, assert, expect } from "vitest";
 
 describe("merge", function () {
   it("basic", () => {
@@ -82,8 +82,8 @@ describe("merge.clone", function () {
     const object2 = merge.clone(object1);
 
     assert.deepEqual(object1, object2);
-    assert.deepEqual(object1 === object2, false);
-    assert.deepEqual(object1.b === object2.b, false);
+    expect(object1 === object2).toBeFalsy();
+    expect(object1.b === object2.b).toBeFalsy();
   });
 
   it("array", () => {
@@ -91,16 +91,16 @@ describe("merge.clone", function () {
     const object2 = merge.clone(object1);
 
     assert.deepEqual(object1, object2);
-    assert.deepEqual(object1 === object2, false);
-    assert.deepEqual(object1[0] === object2[0], false);
-    assert.deepEqual(object1[0].b === object2[0].b, false);
+    expect(object1 === object2).toBeFalsy();
+    expect(object1[0] === object2[0]).toBeFalsy();
+    expect(object1[0].b === object2[0].b).toBeFalsy();
   });
 
   it("invalid input", () => {
-    assert.deepEqual(merge.clone(null), null);
-    assert.deepEqual(merge.clone(undefined), undefined);
-    assert.deepEqual(merge.clone(1), 1);
-    assert.deepEqual(merge.clone("str"), "str");
+    expect(merge.clone(null)).toBeNull();
+    expect(merge.clone(undefined)).toBeUndefined();
+    expect(merge.clone(1)).toBe(1);
+    expect(merge.clone("str")).toBe("str");
   });
 });
 
@@ -165,7 +165,7 @@ describe("merge.recursive", function () {
       {}
     );
 
-    assert.equal(({} as any)["a"], undefined);
+    expect(({} as any)["a"]).toBeUndefined();
 
     assert.deepEqual(
       merge.recursive(
@@ -175,6 +175,6 @@ describe("merge.recursive", function () {
       { deep: {} }
     );
 
-    assert.equal(({} as any)["b"], undefined);
+    expect(({} as any)["b"]).toBeUndefined();
   });
 });
