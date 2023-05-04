@@ -29,19 +29,16 @@
     "dev:ts": "./node_modules/.bin/tsc -p tsconfig.json -w",
     "dev:wp": "./node_modules/.bin/webpack --config webpack.config.js -w",
     "format": "prettier --cache -w .",
-    "test": "./node_modules/.bin/mocha lib/test/index.js"
+    "test": "vitest run"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.14",
-    "@types/mocha": "^8.0.4",
     "@types/node": "^14.14.7",
-    "chai": "^4.2.0",
     "concurrently": "^5.3.0",
-    "mocha": "^8.2.1",
     "prettier": "^2.8.8",
     "prettier-plugin-packagejson": "^2.4.3",
     "prettier-plugin-sort-json": "^1.0.0",
     "typescript": "^4.0.5",
+    "vitest": "^0.31.0",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0"
   }

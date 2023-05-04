@@ -1,5 +1,5 @@
-import { assert } from "chai";
 import merge from "../src/index";
+import { describe, it, assert } from "vitest";
 
 describe("merge", function () {
   it("basic", () => {
