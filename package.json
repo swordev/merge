@@ -10,13 +10,19 @@
     "object",
     "browser"
   ],
-  "homepage": "https://github.com/yeikos/js.merge",
+  "homepage": "https://github.com/swordev/merge",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yeikos/js.merge.git"
+    "url": "https://github.com/swordev/merge.git"
   },
   "license": "MIT",
-  "author": "yeikos",
+  "contributors": [
+    {
+      "name": "Juanra GM",
+      "email": "juanrgm724@gmail.com",
+      "url": "https://github.com/juanrgm"
+    }
+  ],
   "main": "lib/index.js",
   "files": [
     "lib/index.d.ts"
