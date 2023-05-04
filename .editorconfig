@@ -1,11 +1,4 @@
 root = true
 
-[{*.ts,*.md,*.html,*.json,webpack.config.js}]
+[*]
 end_of_line = lf
-charset = utf-8
-indent_style = tab
-indent_size = 4
-
-[package-lock.json]
-indent_style = space
-indent_size = 2
