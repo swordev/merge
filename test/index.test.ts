@@ -1,5 +1,5 @@
-import { merge, clone, recursive } from "../src/index";
-import { describe, it, expect } from "vitest";
+import { merge, clone, recursive, isPlainObject } from "../src/index";
+import { describe, it, expect, vi } from "vitest";
 
 describe("merge", () => {
   it("merges two objects", () => {
@@ -56,15 +56,42 @@ describe("merge", () => {
   });
 
   it("ignores the sources", () => {
-    expect(merge()).toStrictEqual({});
-    expect(merge(undefined)).toStrictEqual({});
-    expect(merge([])).toStrictEqual({});
-    expect(merge(true)).toStrictEqual({});
+    const values = createNonPlainObjects();
+    const $merge = vi.fn().mockImplementation(merge);
+
+    for (const value of values) expect($merge(value)).toStrictEqual({});
+
+    expect(values.length).toBeGreaterThan(0);
+    expect($merge).toBeCalledTimes(values.length);
     expect(
-      merge(null, true, [0, 1, 2], 3, { a: 1 }, () => {}, undefined, {
+      merge(...values, [0, 1, 2], ...values, { a: 1 }, ...values, {
         b: 2,
       })
     ).toStrictEqual({ a: 1, b: 2 });
+  });
+
+  it("does not merge non plain objects", () => {
+    const values = createNonPlainObjects();
+    expect(values.length).toBeGreaterThan(0);
+    const input: any = {};
+
+    for (const [index, value] of Object.entries(values)) {
+      input[`value${index}`] = value;
+    }
+
+    const output = merge({}, input);
+
+    for (const [index] of Object.entries(values)) {
+      const key = `value${index}`;
+      const inputValue = input[key];
+      const outputValue = output[key];
+
+      if (typeof outputValue === "number" && isNaN(outputValue)) {
+        expect(isNaN(inputValue), key).toBeTruthy();
+      } else {
+        expect(inputValue === outputValue, key).toBeTruthy();
+      }
+    }
   });
 
   it("is safe", () => {
@@ -96,10 +123,20 @@ describe("clone", () => {
   });
 
   it("returns the same input", () => {
-    expect(clone(null)).toBeNull();
-    expect(clone(undefined)).toBeUndefined();
-    expect(clone(1)).toBe(1);
-    expect(clone("str")).toBe("str");
+    const values = createNonPlainObjects();
+    const $clone = vi.fn().mockImplementation(clone);
+    for (const value of values) {
+      const cloned = $clone(value);
+      if (typeof cloned === "number" && isNaN(cloned)) {
+        expect(isNaN(value)).toBeTruthy();
+      } else if (Array.isArray(cloned)) {
+        expect(Array.isArray(value)).toBeTruthy();
+      } else {
+        expect(cloned === value).toBeTruthy();
+      }
+    }
+    expect(values.length).toBeGreaterThan(0);
+    expect($clone).toBeCalledTimes(values.length);
   });
 });
 
@@ -158,6 +195,11 @@ describe("recursive", () => {
     expect(test4).toStrictEqual({ a: { b: { b: 2 }, c: 1 } });
   });
 
+  it("does not merge non plain objects", () => {
+    const object = recursive({ map: { length: 1 } }, { map: new Map() });
+    expect(object.map).toBeInstanceOf(Map);
+  });
+
   it("is safe", () => {
     const payload = '{"__proto__": {"a": true}}';
     expect(recursive({}, JSON.parse(payload))).toStrictEqual({});
@@ -168,3 +210,50 @@ describe("recursive", () => {
     expect(({} as any)["b"]).toBeUndefined();
   });
 });
+
+describe("isPlainObject", () => {
+  it("returns true", () => {
+    expect(isPlainObject({})).toBeTruthy();
+    expect(isPlainObject({ v: 1 })).toBeTruthy();
+    expect(isPlainObject(Object.create(null))).toBeTruthy();
+    expect(isPlainObject(new Object())).toBeTruthy();
+  });
+  it("returns false", () => {
+    const values = createNonPlainObjects();
+    const $isPlainObject = vi.fn().mockImplementation(isPlainObject);
+    for (const value of values) expect($isPlainObject(value)).toBeFalsy();
+    expect(values.length).toBeGreaterThan(0);
+    expect($isPlainObject).toBeCalledTimes(values.length);
+  });
+});
+
+function createNonPlainObjects(): any[] {
+  class SubObject extends Object {}
+  return [
+    null,
+    undefined,
+    1,
+    "",
+    "str",
+    [],
+    [1],
+    () => {},
+    function () {},
+    true,
+    false,
+    NaN,
+    Infinity,
+    class {},
+    new (class {})(),
+    new Map(),
+    new Set(),
+    new Date(),
+    new Array(),
+    new Date(),
+    new RegExp(/./),
+    /./,
+    SubObject,
+    new SubObject(),
+    Symbol(""),
+  ];
+}

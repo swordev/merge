@@ -41,13 +41,16 @@ export function clone<T>(input: T): T {
   }
 }
 
-export function isPlainObject(input: any): input is Object {
-  return input && typeof input === "object" && !Array.isArray(input);
+export function isPlainObject(input: unknown): input is Object {
+  if (input === null || typeof input !== "object") return false;
+  if (Object.getPrototypeOf(input) === null) return true;
+  let ref = input;
+  while (Object.getPrototypeOf(ref) !== null) ref = Object.getPrototypeOf(ref);
+  return Object.getPrototypeOf(input) === ref;
 }
 
 function _recursiveMerge(base: any, extend: any) {
-  if (!isPlainObject(base)) return extend;
-
+  if (!isPlainObject(base) || !isPlainObject(extend)) return extend;
   for (const key in extend) {
     if (key === "__proto__" || key === "constructor" || key === "prototype")
       continue;
