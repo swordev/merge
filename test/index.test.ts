@@ -61,7 +61,7 @@ describe("merge", () => {
     expect(merge([])).toStrictEqual({});
     expect(merge(true)).toStrictEqual({});
     expect(
-      merge(null, true, [0, 1, 2], 3, { a: 1 }, function () {}, undefined, {
+      merge(null, true, [0, 1, 2], 3, { a: 1 }, () => {}, undefined, {
         b: 2,
       })
     ).toStrictEqual({ a: 1, b: 2 });
@@ -124,7 +124,7 @@ describe("recursive", () => {
     });
   });
 
-  it("clones recursively", function () {
+  it("clones recursively", () => {
     const test1 = { a: { b: 1 } };
 
     expect(recursive(true, test1, { a: { c: 1 } })).toStrictEqual({
@@ -158,7 +158,7 @@ describe("recursive", () => {
     expect(test4).toStrictEqual({ a: { b: { b: 2 }, c: 1 } });
   });
 
-  it("is safe", function () {
+  it("is safe", () => {
     const payload = '{"__proto__": {"a": true}}';
     expect(recursive({}, JSON.parse(payload))).toStrictEqual({});
     expect(({} as any)["a"]).toBeUndefined();
