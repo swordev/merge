@@ -1,3 +1,4 @@
+.changeset/pre.json
 *.tsbuildinfo
 lib
 pnpm-lock.yaml
