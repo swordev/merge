@@ -1,4 +1,4 @@
-import merge from "../src/index";
+import { merge, clone, recursive } from "../src/index";
 import { describe, it, expect } from "vitest";
 
 describe("merge", () => {
@@ -75,10 +75,10 @@ describe("merge", () => {
   });
 });
 
-describe("merge.clone", () => {
+describe("clone", () => {
   it("clones the input", () => {
     const object1 = { a: 1, b: { c: 2 } };
-    const object2 = merge.clone(object1);
+    const object2 = clone(object1);
 
     expect(object1).toStrictEqual(object2);
     expect(object1 === object2).toBeFalsy();
@@ -87,7 +87,7 @@ describe("merge.clone", () => {
 
   it("clones each item of the array", () => {
     const object1 = [{ a: 1, b: { c: 2 } }];
-    const object2 = merge.clone(object1);
+    const object2 = clone(object1);
 
     expect(object1).toStrictEqual(object2);
     expect(object1 === object2).toBeFalsy();
@@ -96,31 +96,29 @@ describe("merge.clone", () => {
   });
 
   it("returns the same input", () => {
-    expect(merge.clone(null)).toBeNull();
-    expect(merge.clone(undefined)).toBeUndefined();
-    expect(merge.clone(1)).toBe(1);
-    expect(merge.clone("str")).toBe("str");
+    expect(clone(null)).toBeNull();
+    expect(clone(undefined)).toBeUndefined();
+    expect(clone(1)).toBe(1);
+    expect(clone("str")).toBe("str");
   });
 });
 
-describe("merge.recursive", () => {
+describe("recursive", () => {
   it("merges recursively", () => {
-    expect(merge.recursive({ a: { b: 1 } }, { a: { c: 1 } })).toStrictEqual({
+    expect(recursive({ a: { b: 1 } }, { a: { c: 1 } })).toStrictEqual({
       a: { b: 1, c: 1 },
     });
 
-    expect(
-      merge.recursive({ a: { b: 1, c: 1 } }, { a: { b: 2 } })
-    ).toStrictEqual({
+    expect(recursive({ a: { b: 1, c: 1 } }, { a: { b: 2 } })).toStrictEqual({
       a: { b: 2, c: 1 },
     });
 
     expect(
-      merge.recursive({ a: { b: [1, 2, 3], c: 1 } }, { a: { b: ["a"] } })
+      recursive({ a: { b: [1, 2, 3], c: 1 } }, { a: { b: ["a"] } })
     ).toStrictEqual({ a: { b: ["a"], c: 1 } });
 
     expect(
-      merge.recursive({ a: { b: { b: 2 }, c: 1 } }, { a: { b: 2 } })
+      recursive({ a: { b: { b: 2 }, c: 1 } }, { a: { b: 2 } })
     ).toStrictEqual({
       a: { b: 2, c: 1 },
     });
@@ -129,7 +127,7 @@ describe("merge.recursive", () => {
   it("clones recursively", function () {
     const test1 = { a: { b: 1 } };
 
-    expect(merge.recursive(true, test1, { a: { c: 1 } })).toStrictEqual({
+    expect(recursive(true, test1, { a: { c: 1 } })).toStrictEqual({
       a: { b: 1, c: 1 },
     });
 
@@ -137,7 +135,7 @@ describe("merge.recursive", () => {
 
     const test2 = { a: { b: 1, c: 1 } };
 
-    expect(merge.recursive(true, test2, { a: { b: 2 } })).toStrictEqual({
+    expect(recursive(true, test2, { a: { b: 2 } })).toStrictEqual({
       a: { b: 2, c: 1 },
     });
 
@@ -145,7 +143,7 @@ describe("merge.recursive", () => {
 
     const test3 = { a: { b: [1, 2, 3], c: 1 } };
 
-    expect(merge.recursive(true, test3, { a: { b: ["a"] } })).toStrictEqual({
+    expect(recursive(true, test3, { a: { b: ["a"] } })).toStrictEqual({
       a: { b: ["a"], c: 1 },
     });
 
@@ -153,7 +151,7 @@ describe("merge.recursive", () => {
 
     const test4 = { a: { b: { b: 2 }, c: 1 } };
 
-    expect(merge.recursive(true, test4, { a: { b: 2 } })).toStrictEqual({
+    expect(recursive(true, test4, { a: { b: 2 } })).toStrictEqual({
       a: { b: 2, c: 1 },
     });
 
@@ -162,9 +160,9 @@ describe("merge.recursive", () => {
 
   it("is safe", function () {
     const payload = '{"__proto__": {"a": true}}';
-    expect(merge.recursive({}, JSON.parse(payload))).toStrictEqual({});
+    expect(recursive({}, JSON.parse(payload))).toStrictEqual({});
     expect(({} as any)["a"]).toBeUndefined();
-    expect(merge.recursive({ deep: {} }, JSON.parse(payload))).toStrictEqual({
+    expect(recursive({ deep: {} }, JSON.parse(payload))).toStrictEqual({
       deep: {},
     });
     expect(({} as any)["b"]).toBeUndefined();
