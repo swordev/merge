@@ -4,5 +4,7 @@
   "initialVersions": {
     "merge": "2.1.1"
   },
-  "changesets": []
+  "changesets": [
+    "tasty-books-wonder"
+  ]
 }
