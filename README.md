@@ -43,7 +43,7 @@ const objectA = {};
 merge.recursive(
   objectA,
   { level: { value: 1 } },
-  { level: { str: "hello world" } }
+  { level: { str: "hello world" } },
 );
 const objectB = merge.recursive(true, objectA, { level: { value: 2 } });
 

@@ -66,7 +66,7 @@ describe("merge", () => {
     expect(
       merge(...values, [0, 1, 2], ...values, { a: 1 }, ...values, {
         b: 2,
-      })
+      }),
     ).toStrictEqual({ a: 1, b: 2 });
   });
 
@@ -96,7 +96,7 @@ describe("merge", () => {
 
   it("is safe", () => {
     expect(
-      merge({}, JSON.parse('{"__proto__": {"evil": true}}'))
+      merge({}, JSON.parse('{"__proto__": {"evil": true}}')),
     ).toStrictEqual({});
     expect(({} as any).evil).toBeUndefined();
   });
@@ -151,11 +151,11 @@ describe("recursive", () => {
     });
 
     expect(
-      recursive({ a: { b: [1, 2, 3], c: 1 } }, { a: { b: ["a"] } })
+      recursive({ a: { b: [1, 2, 3], c: 1 } }, { a: { b: ["a"] } }),
     ).toStrictEqual({ a: { b: ["a"], c: 1 } });
 
     expect(
-      recursive({ a: { b: { b: 2 }, c: 1 } }, { a: { b: 2 } })
+      recursive({ a: { b: { b: 2 }, c: 1 } }, { a: { b: 2 } }),
     ).toStrictEqual({
       a: { b: 2, c: 1 },
     });
