@@ -27,6 +27,9 @@
   "files": [
     "lib/index.d.ts"
   ],
+  "bin": {
+    "merge": "./merge-cli.mjs"
+  },
   "scripts": {
     "build": "tsc --build tsconfig.build.json",
     "check": "prettier --cache -c .",
@@ -46,5 +49,8 @@
     "prettier-plugin-sort-json": "^3.0.1",
     "typescript": "^5.2.2",
     "vitest": "^0.34.4"
+  },
+  "dependencies": {
+    "mri": "^1.2.0"
   }
 }
